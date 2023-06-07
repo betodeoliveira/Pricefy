@@ -1,6 +1,108 @@
 <script>
+    // [ Hero Orbit ]
+    // Create a timaline for each orbit
+    $(".hero-orbit_item-track").each(function (index) {
+        // Reset track rotatinto to -1 because for some reason 0 is generating some rotation problems
+        gsap.set(this, {
+            rotateY: -1
+        });
+        // Reset item icon rotation to -1 because for some reason 0 is generating some rotation problems
+        gsap.set($(this).find(".hero-orbit_item"), {
+            rotateY: -1
+        });
+        // Create the timeline
+        let trackTimeline = gsap.timeline({
+            paused: true,
+            repeat: -1
+        });
+        // Set the z-index
+        trackTimeline.to(this, {
+            zIndex: "2",
+            duration: 0
+        });
+        // Moving in front of Pricefy icon
+        trackTimeline.to(this, {
+            rotateY: "-=180",
+            duration: 10,
+            ease: "none"
+        }), "<";
+        // Rotate the item in the opposite way
+        trackTimeline.to($(this).find(".hero-orbit_item"), {
+            rotateY: "+=180",
+            duration: 10,
+            ease: "none"
+        }, "<");
+        // Scale up
+        trackTimeline.to($(this).find(".hero-orbit_item"), {
+            scale: 1.1,
+            filter: "blur(0px)",
+            duration: 5,
+            ease: "none",
+        }, "<");
+        // Scale down
+        trackTimeline.to($(this).find(".hero-orbit_item"), {
+            scale: 1,
+            filter: "blur(0.5px)",
+            duration: 5,
+            ease: "none",
+            delay: 5
+        }, "<");
+
+        // Moving behind of Pricefy icon
+        trackTimeline.to(this, {
+            rotateY: "-=180",
+            duration: 10,
+            ease: "none"
+        });
+        // Set the z-index
+        trackTimeline.to(this, {
+            zIndex: "0",
+            duration: 0
+        }, "<");
+        // Rotate the item in the opposite way
+        trackTimeline.to($(this).find(".hero-orbit_item"), {
+            rotateY: "+=180",
+            duration: 10,
+            ease: "none"
+        }, "<");
+        // Scale down
+        trackTimeline.to($(this).find(".hero-orbit_item"), {
+            scale: 0.9,
+            filter: "blur(0.75px)",
+            duration: 5,
+            ease: "none"
+        }, "<");
+        // Scale up
+        trackTimeline.to($(this).find(".hero-orbit_item"), {
+            scale: 1,
+            filter: "blur(0.5px)",
+            duration: 5,
+            ease: "none",
+            delay: 5
+        }, "<");
+
+        // Calculate the rotation of each track should start
+        let startProgress = (100 / 6) / 100;
+        // Set the progress
+        trackTimeline.progress(index * startProgress);
+        // Play the timeline
+        trackTimeline.play();
+    });
+
+    // [ Banners ]
     document.addEventListener("DOMContentLoaded", function () {
-        $(".omni-midia_icon-wrapper").each(function (index) {
+    $('.home-banners_list').slick({
+        infinite: false,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        prevArrow: $("#home-banners_previous"),
+        nextArrow: $("#home-banners_next")
+    });
+});
+
+// [ Omini-mídia ]
+$(".omni-midia_icon-wrapper").each(function (index) {
             let moveTimeline = gsap.timeline({
                 paused: false,
                 repeat: -1
@@ -54,5 +156,63 @@
             onEnter: () => firstCardTimeline.play(),
             onEnterBack: () => firstCardTimeline.reverse()
         });
+
+        // [ Solucoes Slider ]
+    $('.solucoes-slider_list').slick({
+        infinite: false,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        prevArrow: $("#solucoes-slider-prev"),
+        nextArrow: $("#solucoes-slider-next")
     });
-    </script>
+
+    // [ Soluçoes Link ]
+    $(".solucoes_link").each(function (index) {
+
+        let solucoesTimeline = gsap.timeline({
+            paused: true
+        });
+
+        solucoesTimeline.to($(this).find(".solucoes_content-wrapper"), {
+            backgroundColor: "#08877d",
+            color: "#f5faf8",
+            duration: 0.3,
+            ease: "power1.out"
+        });
+
+        solucoesTimeline.to($(this).find(".solucoes_content-wrapper"), {
+            backgroundColor: "#08877d",
+            duration: 0.3,
+            ease: "power1.out"
+        }, "<");
+
+        solucoesTimeline.to($(this).find(".solucoes_more-info-wrapper"), {
+            height: "100%",
+            duration: 0.5,
+            ease: "power2.out"
+        }, "<");
+
+        solucoesTimeline.to($(this).find(".heading-style-h4"), {
+            fontSize: "+=0.25rem",
+            duration: 0.5,
+            ease: "power2.out"
+        }, "<");
+
+        solucoesTimeline.fromTo($(this).find(".solucoes_more-info-wrapper"), {
+            opacity: 0
+        }, {
+            opacity: 1,
+            duration: 0.3,
+            ease: "power1.out"
+        }, "<25%");
+
+        $(this).on("mouseenter", function () {
+            solucoesTimeline.play();
+        });
+
+        $(this).on("mouseleave", function () {
+            solucoesTimeline.reverse();
+        });
+    });
+</script>

@@ -1,0 +1,63 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // [ Slider ]
+        $('.solucoes-slider_list').slick({
+            infinite: false,
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            prevArrow: $("#solucoes-slider-prev"),
+            nextArrow: $("#solucoes-slider-next")
+        });
+
+        // [ Hover in and out ]
+        $(".solucoes_link").each(function (index) {
+
+            let solucoesTimeline = gsap.timeline({
+                paused: true
+            });
+
+            solucoesTimeline.to($(this).find(".solucoes_content-wrapper"), {
+                backgroundColor: "#08877d",
+                color: "#f5faf8",
+                duration: 0.3,
+                ease: "power1.out"
+            });
+
+            solucoesTimeline.to($(this).find(".solucoes_content-wrapper"), {
+                backgroundColor: "#08877d",
+                duration: 0.3,
+                ease: "power1.out"
+            }, "<");
+
+            solucoesTimeline.to($(this).find(".solucoes_more-info-wrapper"), {
+                height: "100%",
+                duration: 0.5,
+                ease: "power2.out"
+            }, "<");
+
+            solucoesTimeline.to($(this).find(".heading-style-h4"), {
+                fontSize: "+=0.25rem",
+                duration: 0.5,
+                ease: "power2.out"
+            }, "<");
+
+            solucoesTimeline.fromTo($(this).find(".solucoes_more-info-wrapper"), {
+                opacity: 0
+            }, {
+                opacity: 1,
+                duration: 0.3,
+                ease: "power1.out"
+            }, "<25%");
+
+            $(this).on("mouseenter", function () {
+                solucoesTimeline.play();
+            });
+
+            $(this).on("mouseleave", function () {
+                solucoesTimeline.reverse();
+            });
+        });
+    });
+</script>
