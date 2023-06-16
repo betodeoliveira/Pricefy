@@ -1,96 +1,8 @@
+<!-- Slick Slider -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 <script>
-    // [ Hero Orbit ]
-    // Create a timaline for each orbit
-    $(".hero-orbit_item-track").each(function (index) {
-        // Reset track rotatinto to -1 because for some reason 0 is generating some rotation problems
-        gsap.set(this, {
-            rotateY: -1
-        });
-        // Reset item icon rotation to -1 because for some reason 0 is generating some rotation problems
-        gsap.set($(this).find(".hero-orbit_item"), {
-            rotateY: -1
-        });
-        // Create the timeline
-        let trackTimeline = gsap.timeline({
-            paused: true,
-            repeat: -1
-        });
-        // Set the z-index
-        trackTimeline.to(this, {
-            zIndex: "2",
-            duration: 0
-        });
-        // Moving in front of Pricefy icon
-        trackTimeline.to(this, {
-            rotateY: "-=180",
-            duration: 10,
-            ease: "none"
-        }), "<";
-        // Rotate the item in the opposite way
-        trackTimeline.to($(this).find(".hero-orbit_item"), {
-            rotateY: "+=180",
-            duration: 10,
-            ease: "none"
-        }, "<");
-        // Scale up
-        trackTimeline.to($(this).find(".hero-orbit_item"), {
-            scale: 1.1,
-            filter: "blur(0px)",
-            duration: 5,
-            ease: "none",
-        }, "<");
-        // Scale down
-        trackTimeline.to($(this).find(".hero-orbit_item"), {
-            scale: 1,
-            filter: "blur(0.5px)",
-            duration: 5,
-            ease: "none",
-            delay: 5
-        }, "<");
-
-        // Moving behind of Pricefy icon
-        trackTimeline.to(this, {
-            rotateY: "-=180",
-            duration: 10,
-            ease: "none"
-        });
-        // Set the z-index
-        trackTimeline.to(this, {
-            zIndex: "0",
-            duration: 0
-        }, "<");
-        // Rotate the item in the opposite way
-        trackTimeline.to($(this).find(".hero-orbit_item"), {
-            rotateY: "+=180",
-            duration: 10,
-            ease: "none"
-        }, "<");
-        // Scale down
-        trackTimeline.to($(this).find(".hero-orbit_item"), {
-            scale: 0.9,
-            filter: "blur(0.75px)",
-            duration: 5,
-            ease: "none"
-        }, "<");
-        // Scale up
-        trackTimeline.to($(this).find(".hero-orbit_item"), {
-            scale: 1,
-            filter: "blur(0.5px)",
-            duration: 5,
-            ease: "none",
-            delay: 5
-        }, "<");
-
-        // Calculate the rotation of each track should start
-        let startProgress = (100 / 6) / 100;
-        // Set the progress
-        trackTimeline.progress(index * startProgress);
-        // Play the timeline
-        trackTimeline.play();
-    });
-
-    // [ Banners ]
-    document.addEventListener("DOMContentLoaded", function () {
+    // [ Slider - Banners ]
     $('.home-banners_list').slick({
         infinite: false,
         speed: 500,
@@ -99,72 +11,61 @@
         prevArrow: $("#home-banners_previous"),
         nextArrow: $("#home-banners_next")
     });
-});
 
-// [ Omini-mídia ]
-$(".omni-midia_icon-wrapper").each(function (index) {
-            let moveTimeline = gsap.timeline({
-                paused: false,
-                repeat: -1
+    // [ Omini-mídia ]
+    $(".omni-midia_icon-wrapper").each(function (index) {
+        let moveTimeline = gsap.timeline({
+            paused: false,
+            repeat: -1
+        });
+        let random = Math.floor(Math.random() * 2);
+        if (random <= 0) {
+            gsap.set(this, {
+                y: "1rem"
             });
-            let random = Math.floor(Math.random() * 2);
-            if(random <= 0) {
-                gsap.set(this, {
-                    y: "1rem"
-                });
-                moveTimeline.to(this, {
-                    y: "-1rem",
-                    duration: 4,
-                    ease: "power2.inOut"
-                });
-                moveTimeline.to(this, {
-                    y: "1rem",
-                    duration: 4,
-                    ease: "power2.inOut"
-                });
-            }
-            else {
-                gsap.set(this, {
-                    y: "-1rem"
-                });
-                moveTimeline.to(this, {
-                    y: "1rem",
-                    duration: 4,
-                    ease: "power2.inOut"
-                });
-                moveTimeline.to(this, {
-                    y: "-1rem",
-                    duration: 4,
-                    ease: "power2.inOut"
-                });
-            }
-        });
-    
-        let firstCardTimeline = gsap.timeline({
-            paused: true
-        });
-    
-        firstCardTimeline.to(".home-omni-midia_title-wrapper", {
-            opacity: 0,
-            duration: 0.5
-        });
-    
-        let cardTrigger = ScrollTrigger.create ({
-            trigger: ".omni-midia_card.is-01",
-            start: "bottom bottom",
-            end: "+=0",
-            onEnter: () => firstCardTimeline.play(),
-            onEnterBack: () => firstCardTimeline.reverse()
-        });
+            moveTimeline.to(this, {
+                y: "-1rem",
+                duration: 4,
+                ease: "power2.inOut"
+            });
+            moveTimeline.to(this, {
+                y: "1rem",
+                duration: 4,
+                ease: "power2.inOut"
+            });
+        }
+        else {
+            gsap.set(this, {
+                y: "-1rem"
+            });
+            moveTimeline.to(this, {
+                y: "1rem",
+                duration: 4,
+                ease: "power2.inOut"
+            });
+            moveTimeline.to(this, {
+                y: "-1rem",
+                duration: 4,
+                ease: "power2.inOut"
+            });
+        }
+    });
 
-        // [ Solucoes Slider ]
-    $('.solucoes-slider_list').slick({
-        infinite: false,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        prevArrow: $("#solucoes-slider-prev"),
-        nextArrow: $("#solucoes-slider-next")
+    let firstCardTimeline = gsap.timeline({
+        paused: true
+    });
+
+    firstCardTimeline.to(".home-omni-midia_title-wrapper", {
+        opacity: 0,
+        duration: 0.5
+    });
+
+    let cardTrigger = ScrollTrigger.create({
+        trigger: ".omni-midia_card.is-01",
+        start: "bottom bottom",
+        end: "+=0",
+        onEnter: () => firstCardTimeline.play(),
+        onEnterBack: () => firstCardTimeline.reverse()
     });
 
     // [ Soluçoes Link ]

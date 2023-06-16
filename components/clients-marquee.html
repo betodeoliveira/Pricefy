@@ -1,0 +1,16 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let marqueeTimeline = gsap.timeline({ 
+            scrollTrigger: {
+                trigger: ".clients-marquee_component",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+                // markers: true
+            }
+        });
+    
+        marqueeTimeline.to(".clients-marquee_list.is-left-right", { x: "-5%" });
+        marqueeTimeline.to(".clients-marquee_list.is-right-left", { x: "5%" }, "<");
+    });
+    </script>

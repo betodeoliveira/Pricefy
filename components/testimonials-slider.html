@@ -1,0 +1,42 @@
+<script>
+    // Don't forget to add Slick style and js library under page settings 
+    document.addEventListener("DOMContentLoaded", function () {
+    
+        // Logo Slider
+        $('.testimonails-slider_logos-list').slick({
+            infinite: true,
+            centerMode: true,
+            centerPadding: '24px',
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            prevArrow: $("#testimonials_nav-prev"),
+            nextArrow: $("#testimonials_nav-next"),
+            swipe: false
+        });
+    
+        // Text Slider
+        $('.testimonails-slider_texts-list').slick({
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            fade: true,
+            cssEase: 'linear',
+            prevArrow: $("#testimonials_text-prev"),
+            nextArrow: $("#testimonials_text-next"),
+            swipe: false
+        });
+    
+        // Mirror the click from the prev trigger
+        $("#testimonials_trigger-nav-prev").on("click", function () {
+            $("#testimonials_nav-prev").click();
+            $("#testimonials_text-prev").click();
+        });
+        // Mirror the click from the next trigger
+        $("#testimonials_trigger-nav-next").on("click", function () {
+            $("#testimonials_nav-next").click();
+            $("#testimonials_text-next").click();
+        });
+    });
+    </script>

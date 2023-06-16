@@ -1,0 +1,56 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let baseDuration = 2.5;
+        $(".big-numbers_orbit-track").each(function (index) {
+            // Reset track rotatinto to -1 because for some reason 0 is generating some rotation problems
+            gsap.set(this, { rotateX: -1 });
+            gsap.set($(this).find(".big-numbers_orbit-item"), { rotateX: -1 });
+            // To prevent scale from jumping we must set the initial value
+            gsap.set($(this).find(".big-numbers_orbit-item"), { scale: 0.9 });
+            // To prevent opacity from jumping we must set the initial value
+            gsap.set($(this).find(".big-numbers_orbit-item"), { opacity: 0.1 });
+            // Create the timeline
+            let trackTimeline = gsap.timeline({ paused: true, repeat: -1 });
+
+            // Moving from top to center
+            trackTimeline.to(this, { zIndex: "2", duration: 0 });
+            trackTimeline.to(this, { rotateX: "-=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { rotateX: "+=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { opacity: 1, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { scale: 1, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { filter: "blur(0px)", duration: baseDuration, ease: "none" }, "<");
+
+
+            // Moving from center to bottom
+            trackTimeline.to(this, { zIndex: "1", duration: 0 });
+            trackTimeline.to(this, { rotateX: "-=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { rotateX: "+=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { opacity: 0.05, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { scale: 0.9, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { filter: "blur(1px)", duration: baseDuration, ease: "none" }, "<");
+
+            // Moving from bottom to center
+            trackTimeline.to(this, { zIndex: "0", duration: 0 });
+            trackTimeline.to(this, { rotateX: "-=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { rotateX: "+=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { opacity: 0.05, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { scale: 0.8, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { filter: "blur(2px)", duration: baseDuration, ease: "none" }, "<");
+
+            // Moving from center to top
+            trackTimeline.to(this, { zIndex: "0", duration: 0 });
+            trackTimeline.to(this, { rotateX: "-=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { rotateX: "+=90", duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { opacity: 0.05, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { scale: 0.9, duration: baseDuration, ease: "none" }, "<");
+            trackTimeline.to($(this).find(".big-numbers_orbit-item"), { filter: "blur(1px)", duration: baseDuration, ease: "none" }, "<");
+
+            // Calculate the rotation of each track should start
+            let startProgress = (100 / 3) / 100;
+            // Set the progress
+            trackTimeline.progress(index * startProgress);
+            // Play the timeline
+            trackTimeline.play();
+        });
+    });
+</script>
