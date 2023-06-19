@@ -12,22 +12,27 @@
         nextArrow: $("#home-banners_next")
     });
 
-    let firstCardTimeline = gsap.timeline({
+    // [ Omini-mídia ]
+    let omnimidiaTimeline = gsap.timeline({
         paused: true
     });
 
-    firstCardTimeline.to(".home-omni-midia_title-wrapper", {
-        opacity: 0,
-        duration: 0.5
-    });
+    omnimidiaTimeline.fromTo(".omni-midia_card", { 
+        y: "4rem",
+        opacity: 0
+     }, {
+        y: "0rem",
+        opacity: 1,
+        stagger: 0.25,
+        ease: "sine.inOut"
+     });
 
-    let cardTrigger = ScrollTrigger.create({
-        trigger: ".omni-midia_card.is-01",
+     ScrollTrigger.create({
+        trigger: ".omni-midia_cards-list",
         start: "bottom bottom",
         end: "+=0",
-        onEnter: () => firstCardTimeline.play(),
-        onEnterBack: () => firstCardTimeline.reverse()
-    });
+        onEnter: () => omnimidiaTimeline.play()
+     });
 
     // [ Soluçoes Link ]
     $(".solucoes_link").each(function (index) {
@@ -55,7 +60,7 @@
             ease: "power2.out"
         }, "<");
 
-        solucoesTimeline.to($(this).find(".heading-style-h4"), {
+        solucoesTimeline.to($(this).find(".heading-style-h5"), {
             fontSize: "+=0.25rem",
             duration: 0.5,
             ease: "power2.out"
